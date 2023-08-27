@@ -1,4 +1,3 @@
-
 from dash import html, dcc, Input, Output
 import plotly.express as px
 import plotly.graph_objects as go
@@ -10,11 +9,11 @@ from dash_bootstrap_templates import ThemeSwitchAIO
 
 url_theme1 = dbc.themes.CYBORG
 url_theme2 = dbc.themes.LUX
-template_theme1 = 'Cyborg'
+template_theme1 = 'cyborg'
 template_theme2 = 'lux'
 
 
-df = pd.read_csv('D:\codes\gross of pib per capita\Gross National Income Per Capita.csv', sep = ",")
+df = pd.read_csv('Gross National Income Per Capita.csv', sep = ",")
 country_options = [{'label': x, 'value': x} for x in df['Country'].unique()]
 hemisphere_options = [{'label': x, 'value': x} for x in df['Hemisphere'].unique()]
 
@@ -22,7 +21,7 @@ hemisphere_options = [{'label': x, 'value': x} for x in df['Hemisphere'].unique(
 app.layout = dbc.Container([
     dbc.Row([
          dbc.Col([
-             ThemeSwitchAIO(aio_id = 'theme', themes = [url_theme1, url_theme2]),
+             ThemeSwitchAIO(aio_id='theme', themes=[url_theme1, url_theme2]),
              html.H3("Renda Nacional Bruta Per Capita"),
             
             dcc.Dropdown(
@@ -39,7 +38,7 @@ app.layout = dbc.Container([
 
     dbc.Row([
         dbc.Col([
-            dcc.Graph(id = 'line_graph')
+            dcc.Graph(id='line_graph')
         ])
     ]),
 
@@ -72,10 +71,12 @@ app.layout = dbc.Container([
 
 @app.callback(
     Output('line_graph', 'figure'),
-    [Input('country', 'value')]
+    Input('country', 'value'),
+    Input(ThemeSwitchAIO.ids.switch('theme'),'value')
 )
-def update_line_graph(selected_countries):
+def update_line_graph(selected_countries, toggle):
     filtered_df = df[df['Country'].isin(selected_countries)]
+    template = template_theme1 if toggle else template_theme2
     
     fig = go.Figure()
     for country in selected_countries:
@@ -85,13 +86,14 @@ def update_line_graph(selected_countries):
         
         fig.add_trace(go.Scatter(x=x_data, y=y_data, mode='lines+markers', name=country))
     
-    fig.update_layout(title="Renda per capita",
-                      xaxis_title="Ano",
-                      yaxis_title="RNB per Capita",
-                      template='plotly_dark',
-                      height=800,  
-                     width=1250   
-                     )
+    fig.update_layout(
+        template=template,
+      title="Renda per capita",
+      xaxis_title="Ano",
+      yaxis_title="RNB per Capita",
+      height=800,
+     width=1250
+    )
 
     
     return fig
@@ -100,10 +102,12 @@ def update_line_graph(selected_countries):
     Output('indicator1', 'figure'),
     Output('indicator2', 'figure'),
     Input('pais1', 'value'),
-    Input('pais2', 'value')
+    Input('pais2', 'value'),
+    Input(ThemeSwitchAIO.ids.switch('theme'),'value')
 )
-def indicators(pais1, pais2):
+def indicators(pais1, pais2, toggle):
     df_data = df.copy(deep=True)
+    template = template_theme1 if toggle else template_theme2
 
     data_pais1 = df_data[df_data['Country'] == pais1]
     data_pais2 = df_data[df_data['Country'] == pais2]
@@ -124,6 +128,8 @@ def indicators(pais1, pais2):
             delta={'relative': True, 'valueformat': '.1%', 'reference': initial_value}
         ))
 
+        fig.update_layout(template=template)
+
         indicator_figs.append(fig)
     
     return indicator_figs
@@ -132,11 +138,13 @@ def indicators(pais1, pais2):
 @app.callback(
     Output('box1', 'figure'),
     Input('pais1', 'value'),
+    Input(ThemeSwitchAIO.ids.switch('theme'),'value')
 )
-def box1(pais1):
+def box1(pais1, toggle):
     df_data = df.copy(deep=True)
     data_pais = df_data[df_data['Country'] == pais1]
-    
+    template = template_theme1 if toggle else template_theme2
+
     # Filtrar as colunas correspondentes aos anos de 1990 a 2021
     columns = df_data.columns[8:30]
     data_pais_filtered = data_pais[columns]
@@ -146,7 +154,7 @@ def box1(pais1):
     df_renda = pd.DataFrame(data)
 
     # Criar o gráfico de dispersão
-    fig = px.scatter(df_renda, x='Ano', y='Renda Interna Bruta', title=f'Renda Interna Bruta - {pais1} (1990-2021)', template='plotly_dark')
+    fig = px.scatter(df_renda, x='Ano', y='Renda Interna Bruta', title=f'Renda Interna Bruta - {pais1} (1990-2021)', template=template)
 
     return fig
 
@@ -154,10 +162,12 @@ def box1(pais1):
 @app.callback(
     Output('box2', 'figure'),
     Input('pais2', 'value'),
+    Input(ThemeSwitchAIO.ids.switch('theme'),'value')
 )
-def box1(pais2):
+def box1(pais2, toggle):
     df_data = df.copy(deep=True)
     data_pais = df_data[df_data['Country'] == pais2]
+    template = template_theme1 if toggle else template_theme2
     
     # Filtrar as colunas correspondentes aos anos de 1990 a 2021
     columns = df_data.columns[8:30]
@@ -168,7 +178,7 @@ def box1(pais2):
     df_renda = pd.DataFrame(data)
 
     # Criar o gráfico de dispersão
-    fig = px.scatter(df_renda, x='Ano', y='Renda Interna Bruta', title=f'Renda Interna Bruta - {pais2} (1990-2021)', template='plotly_dark')
+    fig = px.scatter(df_renda, x='Ano', y='Renda Interna Bruta', title=f'Renda Interna Bruta - {pais2} (1990-2021)', template=template)
 
     return fig
 
