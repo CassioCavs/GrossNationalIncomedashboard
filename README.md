@@ -57,5 +57,5 @@ Você pode alternar entre dois temas visuais diferentes: CYBORG e LUX. O botão 
 Sinta-se à vontade para contribuir com melhorias, correções de bugs ou novos recursos para este projeto. Basta abrir uma issue ou enviar um pull request.
 
 # Licença
-Este projeto está licenciado sob a MIT License.
+Este projeto está licenciado sob a [MIT License](https://github.com/CassioCavs/GrossNationalIncomedashboard/blob/main/LICENSE).
 
