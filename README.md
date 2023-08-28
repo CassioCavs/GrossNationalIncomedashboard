@@ -1,1 +1,1 @@
-# Gross National Income dashboard
+# Renda Nacional Bruta dashboard
