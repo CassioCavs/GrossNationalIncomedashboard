@@ -17,7 +17,7 @@ Você pode instalá-las utilizando o seguinte comando:
 
 ```sh
 pip install dash dash-bootstrap-components plotly pandas dash-bootstrap-templates
-´´´
+```
 
 ## Como Executar
 Clone este repositório para o seu ambiente local.
