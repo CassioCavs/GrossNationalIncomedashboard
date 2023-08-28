@@ -38,3 +38,20 @@ Navegue até o diretório do projeto e execute o arquivo app.py:
 ```
 python app.py
 ```
+
+
+Isso iniciará o servidor de desenvolvimento e você poderá acessar o painel interativo no seu navegador em http://localhost:8052/.
+
+## Recursos
+- Painel de Visualização
+O painel de visualização é composto por várias seções interativas:
+
+- Seleção de Países: Escolha os países para visualizar no gráfico de linha e nas seções de indicadores.
+- Gráfico de Linha: Exibe a RNB per capita ao longo dos anos para os países selecionados.
+- Indicadores: Apresenta indicadores econômicos para os dois países selecionados, incluindo o valor final, variação percentual e valor absoluto.
+- Gráficos de Dispersão: Mostra a distribuição da Renda Interna Bruta ao longo dos anos para os países selecionados.
+# Temas Visuais
+Você pode alternar entre dois temas visuais diferentes: CYBORG e LUX. O botão de alternância de tema está localizado na parte superior do painel.
+
+# Contribuição
+Sinta-se à vontade para contribuir com melhorias, correções de bugs ou novos recursos para este projeto. Basta abrir uma issue ou enviar um pull request.
