@@ -17,11 +17,11 @@ Você pode instalá-las utilizando o seguinte comando:
 
 ```sh
 pip install dash dash-bootstrap-components plotly pandas dash-bootstrap-templates
-
+´´´
 
 ## Como Executar
 Clone este repositório para o seu ambiente local.
 Certifique-se de que os dados do arquivo "Gross National Income Per Capita.csv" estão disponíveis no diretório.
 Navegue até o diretório do projeto e execute o arquivo app.py:
-```sh 
+
 python app.py
