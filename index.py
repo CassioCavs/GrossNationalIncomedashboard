@@ -65,8 +65,20 @@ app.layout = dbc.Container([
                 dcc.Graph(id = 'indicator2'),
                 dcc.Graph(id = 'box2')
             ])
-        ])
+        ]),
+    ]),
+    dbc.Row([
+        dbc.Col([
+                dcc.Dropdown(
+                id='Hemisphere',
+                value = [hemisphere['label'] for hemisphere in hemisphere_options[:2]],
+                multi = True,
+                options = hemisphere_options),
+                
+            dcc.Graph(id='line_graph2'),
+                
     ])
+])
 ])
 
 @app.callback(
@@ -182,6 +194,34 @@ def box1(pais2, toggle):
 
     return fig
 
+@app.callback(
+    Output('line_graph2', 'figure'),
+    Input('Hemisphere', 'value'),  # <-- Use 'Hemisphere' instead of 'hemisphere'
+    Input(ThemeSwitchAIO.ids.switch('theme'),'value')
+)
+def update_line_graph(selected_hemisphere, toggle):
+    filtered_df = df[df['Hemisphere'].isin(selected_hemisphere)]
+    template = template_theme1 if toggle else template_theme2
+    
+    fig = go.Figure()
+    for Hemisphere in selected_hemisphere:
+        country_data = filtered_df[filtered_df['Hemisphere'] == Hemisphere]
+        x_data = country_data.columns[7:]  # Colunas de anos
+        y_data = country_data.iloc[0, 7:]  # Valores de GNI per capita
+        
+        fig.add_trace(go.Scatter(x=x_data, y=y_data, mode='lines+markers', name=Hemisphere))
+    
+    fig.update_layout(
+        template=template,
+      title="Renda per capita",
+      xaxis_title="Ano",
+      yaxis_title="RNB per Capita",
+      height=800,
+     width=1250
+    )
+
+    
+    return fig
 
 
 if __name__ == '__main__':
