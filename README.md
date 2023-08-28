@@ -31,4 +31,10 @@ Clone este repositório para o seu ambiente local.
 Certifique-se de que os dados do arquivo "Gross National Income Per Capita.csv" estão disponíveis no diretório.
 Navegue até o diretório do projeto e execute o arquivo app.py:
 
+
+
+
+
+```
 python app.py
+```
