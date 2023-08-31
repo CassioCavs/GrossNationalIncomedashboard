@@ -170,7 +170,7 @@ def box1(pais1, toggle):
     template = template_theme1 if toggle else template_theme2
 
     # Filtrando as colunas de 1990 a 2021
-    columns = df_data.columns[8:30]
+    columns = df_data.columns[8:39]
     data_pais_filtered = data_pais[columns]
 
     # Criando um DataFrame para a renda interna bruta
@@ -194,7 +194,7 @@ def box2(pais2, toggle):
     template = template_theme1 if toggle else template_theme2
     
     # Filtrando as colunas de 1990 a 2021
-    columns = df_data.columns[8:30]
+    columns = df_data.columns[8:39]
     data_pais_filtered = data_pais[columns]
 
     # Criando um DataFrame para a renda interna bruta
@@ -219,7 +219,7 @@ def update_line_graph(selected_hemisphere, toggle):
     fig = go.Figure()
 
     # Calculando a soma dos valores de GNI per capita para cada ano
-    columns = df.columns[8:30]
+    columns = df.columns[8:39]
     grouped_data = filtered_df.groupby('Hemisphere')[columns].sum()
 
     # Adicionando linhas para os hemisférios selecionados
