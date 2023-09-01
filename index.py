@@ -228,9 +228,9 @@ def update_line_graph(selected_hemisphere, toggle):
     
     fig.update_layout(
         template=template,
-        title="Comparação de Soma de GNI per capita por Ano",
+        title="Comparação de Soma de RNB per capita por Ano",
         xaxis_title="Ano",
-        yaxis_title="Soma de GNI per Capita",
+        yaxis_title="Soma de RNB per Capita",
         
     )
 
